@@ -33,11 +33,14 @@ if submit and question:
                 response = openai.ChatCompletion.create(
                     model="gpt-4o",
                     messages=[
-                        {"role": "system", "content": f"You are CodyOS, a domain-aware assistant with the following context:
-{vault_context}"},
+                        {"role": "system", "content": f"""You are CodyOS, a domain-aware assistant with the following context:
+
+{vault_context}
+"""}, 
                         {"role": "user", "content": question}
                     ]
                 )
                 st.success(response.choices[0].message.content)
             except Exception as e:
                 st.error(f"API Error: {e}")
+
