@@ -29,18 +29,18 @@ if submit and question:
             st.error("API key not found. Please set it in .env or Streamlit secrets.")
         else:
             try:
-                openai.api_key = api_key
-                response = openai.ChatCompletion.create(
+                client = openai.OpenAI(api_key=api_key)
+                response = client.chat.completions.create(
                     model="gpt-4o",
                     messages=[
                         {"role": "system", "content": f"""You are CodyOS, a domain-aware assistant with the following context:
 
-{vault_context}
-"""}, 
+{vault_context}"""}, 
                         {"role": "user", "content": question}
                     ]
                 )
                 st.success(response.choices[0].message.content)
             except Exception as e:
                 st.error(f"API Error: {e}")
+
 
